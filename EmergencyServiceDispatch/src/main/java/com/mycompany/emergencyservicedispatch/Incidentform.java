@@ -223,6 +223,7 @@ txtIncidentId.setText(generateIncidentId());
         lblSearch.setText("Search by Incident id");
 
         btnSearch.setText("Search");
+        btnSearch.addActionListener(this::btnSearchActionPerformed);
 
         tblIncidents.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -443,6 +444,41 @@ javax.swing.JOptionPane.showMessageDialog(this,
         "Incident " + dispatched.getIncidentID()
         + " has been dispatched!");
     }//GEN-LAST:event_btnDispatchHighestPrioActionPerformed
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+       String searchID = txtSearchId.getText().trim();
+
+if (searchID.isEmpty()) {
+    javax.swing.JOptionPane.showMessageDialog(this,
+            "Please enter an Incident ID!");
+    return;
+}
+
+Incident found = null;
+
+// Manual Linear Search
+for (int i = 0; i < incidentCount; i++) {
+    if (incidents[i].getIncidentID().equalsIgnoreCase(searchID)) {
+        found = incidents[i];
+        break;
+    }
+}
+
+if (found != null) {
+    javax.swing.JOptionPane.showMessageDialog(this,
+            "INCIDENT FOUND!\n\n"
+            + "Incident ID: " + found.getIncidentID() + "\n"
+            + "Reporter: " + found.getReporterName() + "\n"
+            + "Contact: " + found.getContactNumber() + "\n"
+            + "Type: " + found.getIncidentType() + "\n"
+            + "Location: " + found.getLocation() + "\n"
+            + "Priority: " + found.getPriority() + "\n"
+            + "Status: " + found.getStatus());
+} else {
+    javax.swing.JOptionPane.showMessageDialog(this,
+            "Incident ID not found!");
+}
+    }//GEN-LAST:event_btnSearchActionPerformed
 
     /**
      * @param args the command line arguments
