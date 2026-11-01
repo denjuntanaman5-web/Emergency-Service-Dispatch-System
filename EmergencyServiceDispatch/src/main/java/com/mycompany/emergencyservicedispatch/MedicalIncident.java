@@ -1,13 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package com.mycompany.emergencyservicedispatch;
 
-/**
- *
- * @author nicym
- */
-public class MedicalIncident {
-    
+    package com.mycompany.emergencyservicedispatch;
+
+public class MedicalIncident extends Incident {
+
+    public MedicalIncident(String incidentID, String reporterName,
+            String contactNumber, String location,
+            String description, String priority) {
+
+        super(incidentID, reporterName, contactNumber,
+                "Medical", location, description, priority);
+    }
 }
+

@@ -1,13 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package com.mycompany.emergencyservicedispatch;
+ 
+ 
+    package com.mycompany.emergencyservicedispatch;
 
-/**
- *
- * @author nicym
- */
-public class FireIncident {
-    
+public class FireIncident extends Incident {
+
+    public FireIncident(String incidentID, String reporterName,
+            String contactNumber, String location,
+            String description, String priority) {
+
+        super(incidentID, reporterName, contactNumber,
+                "Fire", location, description, priority);
+    }
 }
+
