@@ -15,6 +15,8 @@ public class Incidentform extends javax.swing.JFrame {
 
 private Incident[] incidents = new Incident[100];
 private int incidentCount = 0;
+private IncidentPriorityQueue priorityQueue =
+        new IncidentPriorityQueue();
 
 private String generateIncidentId() {
     return String.format("INC-%03d", nextIncidentNumber);
@@ -249,6 +251,7 @@ txtIncidentId.setText(generateIncidentId());
         btnAssignPrio.setText("assign priority");
 
         btnDispatchHighestPrio.setText("dispatch highest prio");
+        btnDispatchHighestPrio.addActionListener(this::btnDispatchHighestPrioActionPerformed);
 
         javax.swing.GroupLayout pnlRecordsLayout = new javax.swing.GroupLayout(pnlRecords);
         pnlRecords.setLayout(pnlRecordsLayout);
@@ -351,7 +354,8 @@ txtIncidentId.setText(generateIncidentId());
     javax.swing.JOptionPane.showMessageDialog(this,
             "Incident storage is full!");
     return;
-}
+    }
+    
 
 String id = generateIncidentId();
 String reporter = txtReporter.getText().trim();
@@ -384,6 +388,11 @@ if (type.equals("Medical")) {
     newIncident = new AccidentIncident(id, reporter, contact,
             location, description, priority);
 }
+if (!priorityQueue.addIncident(newIncident)) {
+    javax.swing.JOptionPane.showMessageDialog(this,
+            "Priority Queue is full!");
+    return;
+}
 
 incidents[incidentCount] = newIncident;
 incidentCount++;
@@ -407,6 +416,33 @@ javax.swing.JOptionPane.showMessageDialog(this,
     private void cmbPriorityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPriorityActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbPriorityActionPerformed
+
+    private void btnDispatchHighestPrioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDispatchHighestPrioActionPerformed
+      Incident dispatched = priorityQueue.dispatchHighestPriority();
+
+if (dispatched == null) {
+    javax.swing.JOptionPane.showMessageDialog(this,
+            "No pending incidents to dispatch!");
+    return;
+}
+
+javax.swing.table.DefaultTableModel model =
+        (javax.swing.table.DefaultTableModel) tblIncidents.getModel();
+
+for (int i = 0; i < model.getRowCount(); i++) {
+    if (model.getValueAt(i, 0) != null
+            && model.getValueAt(i, 0).toString()
+            .equals(dispatched.getIncidentID())) {
+
+        model.setValueAt("Dispatched", i, 4);
+        break;
+    }
+}
+
+javax.swing.JOptionPane.showMessageDialog(this,
+        "Incident " + dispatched.getIncidentID()
+        + " has been dispatched!");
+    }//GEN-LAST:event_btnDispatchHighestPrioActionPerformed
 
     /**
      * @param args the command line arguments
