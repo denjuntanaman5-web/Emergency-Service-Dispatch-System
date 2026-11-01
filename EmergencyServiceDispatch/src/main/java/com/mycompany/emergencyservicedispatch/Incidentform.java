@@ -375,6 +375,17 @@ if (reporter.isEmpty() || contact.isEmpty()
             "Please complete all fields!");
     return;
 }
+if (!contact.matches("[0-9]+")) {
+    javax.swing.JOptionPane.showMessageDialog(this,
+            "Contact number must contain numbers only!");
+    return;
+}
+
+if (contact.length() != 11) {
+    javax.swing.JOptionPane.showMessageDialog(this,
+            "Contact number must be 11 digits!");
+    return;
+}
 
 Incident newIncident = null;
 
