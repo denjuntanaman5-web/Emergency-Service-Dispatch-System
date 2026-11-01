@@ -11,12 +11,30 @@ package com.mycompany.emergencyservicedispatch;
 public class Incidentform extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Incidentform.class.getName());
+    private int nextIncidentNumber = 1;
 
+private Incident[] incidents = new Incident[100];
+private int incidentCount = 0;
+
+private String generateIncidentId() {
+    return String.format("INC-%03d", nextIncidentNumber);
+}
+
+private void clearForm() {
+    txtReporter.setText("");
+    txtContact.setText("");
+    txtLocation.setText("");
+    txtDescription.setText("");
+    cmbIncidentType.setSelectedIndex(0);
+    cmbPriority.setSelectedIndex(0);
+}
     /**
      * Creates new form Incidentform
      */
     public Incidentform() {
         initComponents();
+        txtIncidentId.setEditable(false);
+txtIncidentId.setText(generateIncidentId());
     }
 
     /**
@@ -78,7 +96,7 @@ public class Incidentform extends javax.swing.JFrame {
 
         lblType.setText("incident type");
 
-        cmbIncidentType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbIncidentType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Medical", "Fire", "Accident" }));
         cmbIncidentType.addActionListener(this::cmbIncidentTypeActionPerformed);
 
         lblLocation.setText("Location");
@@ -91,7 +109,7 @@ public class Incidentform extends javax.swing.JFrame {
 
         lblPriority.setText("priority");
 
-        cmbPriority.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbPriority.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Critical", "High", "Medium", "Low" }));
         cmbPriority.addActionListener(this::cmbPriorityActionPerformed);
 
         btnRegister.setText("Register");
@@ -102,7 +120,7 @@ public class Incidentform extends javax.swing.JFrame {
         pnlRegistrationLayout.setHorizontalGroup(
             pnlRegistrationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlRegistrationLayout.createSequentialGroup()
-                .addGroup(pnlRegistrationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(pnlRegistrationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlRegistrationLayout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -144,17 +162,16 @@ public class Incidentform extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(lblDescription))
                     .addGroup(pnlRegistrationLayout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(12, 12, 12)
                         .addGroup(pnlRegistrationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(cmbPriority, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblPriority)
                             .addGroup(pnlRegistrationLayout.createSequentialGroup()
                                 .addGap(6, 6, 6)
-                                .addGroup(pnlRegistrationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cmbPriority, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblPriority)
-                                    .addGroup(pnlRegistrationLayout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(pnlRegistrationLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
         pnlRegistrationLayout.setVerticalGroup(
@@ -192,7 +209,7 @@ public class Incidentform extends javax.swing.JFrame {
                 .addComponent(lblPriority)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cmbPriority, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(btnRegister)
                 .addContainerGap())
         );
@@ -227,7 +244,7 @@ public class Incidentform extends javax.swing.JFrame {
 
         lblAssignp.setText("Assign Priority");
 
-        cmbNewPrio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbNewPrio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Critical", "High", "Medium", "Low", " " }));
 
         btnAssignPrio.setText("assign priority");
 
@@ -263,7 +280,7 @@ public class Incidentform extends javax.swing.JFrame {
                             .addGroup(pnlRecordsLayout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addComponent(btnDispatchHighestPrio)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
         pnlRecordsLayout.setVerticalGroup(
             pnlRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -291,7 +308,7 @@ public class Incidentform extends javax.swing.JFrame {
                 .addComponent(btnAssignPrio)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDispatchHighestPrio)
-                .addGap(0, 96, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -306,7 +323,7 @@ public class Incidentform extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(164, 164, 164)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(299, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -330,7 +347,61 @@ public class Incidentform extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbIncidentTypeActionPerformed
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
-        // TODO add your handling code here:
+    if (incidentCount >= incidents.length) {
+    javax.swing.JOptionPane.showMessageDialog(this,
+            "Incident storage is full!");
+    return;
+}
+
+String id = generateIncidentId();
+String reporter = txtReporter.getText().trim();
+String contact = txtContact.getText().trim();
+String location = txtLocation.getText().trim();
+String description = txtDescription.getText().trim();
+
+String type = cmbIncidentType.getSelectedItem().toString();
+String priority = cmbPriority.getSelectedItem().toString();
+
+if (reporter.isEmpty() || contact.isEmpty()
+        || location.isEmpty() || description.isEmpty()) {
+
+    javax.swing.JOptionPane.showMessageDialog(this,
+            "Please complete all fields!");
+    return;
+}
+
+Incident newIncident = null;
+
+if (type.equals("Medical")) {
+    newIncident = new MedicalIncident(id, reporter, contact,
+            location, description, priority);
+
+} else if (type.equals("Fire")) {
+    newIncident = new FireIncident(id, reporter, contact,
+            location, description, priority);
+
+} else if (type.equals("Accident")) {
+    newIncident = new AccidentIncident(id, reporter, contact,
+            location, description, priority);
+}
+
+incidents[incidentCount] = newIncident;
+incidentCount++;
+
+javax.swing.table.DefaultTableModel model =
+        (javax.swing.table.DefaultTableModel) tblIncidents.getModel();
+
+model.addRow(new Object[]{
+    id, reporter, type, priority, "Pending"
+});
+
+nextIncidentNumber++;
+txtIncidentId.setText(generateIncidentId());
+
+clearForm();
+
+javax.swing.JOptionPane.showMessageDialog(this,
+        "Incident registered successfully!");
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void cmbPriorityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPriorityActionPerformed
