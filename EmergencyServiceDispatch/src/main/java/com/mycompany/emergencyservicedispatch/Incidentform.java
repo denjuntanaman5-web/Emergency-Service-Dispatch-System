@@ -250,6 +250,7 @@ txtIncidentId.setText(generateIncidentId());
         cmbNewPrio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Critical", "High", "Medium", "Low", " " }));
 
         btnAssignPrio.setText("assign priority");
+        btnAssignPrio.addActionListener(this::btnAssignPrioActionPerformed);
 
         btnDispatchHighestPrio.setText("dispatch highest prio");
         btnDispatchHighestPrio.addActionListener(this::btnDispatchHighestPrioActionPerformed);
@@ -479,6 +480,47 @@ if (found != null) {
             "Incident ID not found!");
 }
     }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void btnAssignPrioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignPrioActionPerformed
+        int selectedRow = tblIncidents.getSelectedRow();
+
+if (selectedRow == -1) {
+    javax.swing.JOptionPane.showMessageDialog(this,
+            "Please select an incident first!");
+    return;
+}
+
+String incidentID = tblIncidents.getValueAt(selectedRow, 0).toString();
+String newPriority = cmbNewPrio.getSelectedItem().toString();
+
+Incident selectedIncident = null;
+
+// Manual search by ID
+for (int i = 0; i < incidentCount; i++) {
+    if (incidents[i].getIncidentID().equals(incidentID)) {
+        selectedIncident = incidents[i];
+        break;
+    }
+}
+
+if (selectedIncident == null) {
+    javax.swing.JOptionPane.showMessageDialog(this,
+            "Incident not found!");
+    return;
+}
+
+if (selectedIncident.getStatus().equalsIgnoreCase("Dispatched")) {
+    javax.swing.JOptionPane.showMessageDialog(this,
+            "Cannot change priority of a dispatched incident!");
+    return;
+}
+
+selectedIncident.setPriority(newPriority);
+tblIncidents.setValueAt(newPriority, selectedRow, 3);
+
+javax.swing.JOptionPane.showMessageDialog(this,
+        "Priority updated successfully!");
+    }//GEN-LAST:event_btnAssignPrioActionPerformed
 
     /**
      * @param args the command line arguments
