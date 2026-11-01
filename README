@@ -5,3 +5,43 @@ A Java Swing application for managing emergency incident reports and dispatch pr
 ## Subjects
 - IT20 - Data Structures and Algorithms
 - IT21 - Object-Oriented Programming
+
+
+ 
+
+## DSA Implementation (IT20)
+
+### 1. Array-Based Priority Queue
+
+The system uses a manually implemented array-based priority queue to store emergency incidents.
+
+- Incidents are stored in an array.
+- The system checks pending incidents to find the highest priority.
+- Priority order:
+  - Critical
+  - High
+  - Medium
+  - Low
+- The highest-priority pending incident is dispatched first.
+- Dispatched incidents remain stored in the array.
+
+### 2. Linear Search
+
+The system uses manual linear search to find an incident using its Incident ID.
+
+- The system checks each incident one by one.
+- If the Incident ID matches, the incident details are displayed.
+- If no match is found, the system displays an incident not found message.
+
+### 3. Priority Assignment
+
+The dispatcher can update the priority of a selected pending incident.
+
+- The updated priority is reflected in the incident record.
+- The priority queue uses the updated priority when selecting the next incident to dispatch.
+
+### 4. Data Structure
+
+- Array: Stores incident records.
+- Priority Queue: Selects the highest-priority pending incident.
+- Linear Search: Finds incidents using their Incident ID.
