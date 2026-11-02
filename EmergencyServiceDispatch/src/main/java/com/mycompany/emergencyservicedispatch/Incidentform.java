@@ -412,30 +412,44 @@ javax.swing.JOptionPane.showMessageDialog(this,
     }//GEN-LAST:event_cmbPriorityActionPerformed
 
     private void btnDispatchHighestPrioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDispatchHighestPrioActionPerformed
-      Incident dispatched = priorityQueue.dispatchHighestPriority();
+                                                           
 
-if (dispatched == null) {
-    javax.swing.JOptionPane.showMessageDialog(this,
-            "No pending incidents to dispatch!");
-    return;
-}
+    int confirm = javax.swing.JOptionPane.showConfirmDialog(this,
+            "Are you sure you want to dispatch the highest-priority incident?",
+            "Confirm Dispatch",
+            javax.swing.JOptionPane.YES_NO_OPTION);
 
-javax.swing.table.DefaultTableModel model =
-        (javax.swing.table.DefaultTableModel) tblIncidents.getModel();
-
-for (int i = 0; i < model.getRowCount(); i++) {
-    if (model.getValueAt(i, 0) != null
-            && model.getValueAt(i, 0).toString()
-            .equals(dispatched.getIncidentID())) {
-
-        model.setValueAt("Dispatched", i, 4);
-        break;
+    if (confirm != javax.swing.JOptionPane.YES_OPTION) {
+        return;
     }
-}
 
-javax.swing.JOptionPane.showMessageDialog(this,
-        "Incident " + dispatched.getIncidentID()
-        + " has been dispatched!");
+    Incident dispatched = priorityQueue.dispatchHighestPriority();
+
+    if (dispatched == null) {
+        javax.swing.JOptionPane.showMessageDialog(this,
+                "No pending incidents to dispatch!");
+        return;
+    }
+
+    javax.swing.table.DefaultTableModel model =
+            (javax.swing.table.DefaultTableModel) tblIncidents.getModel();
+
+    for (int i = 0; i < model.getRowCount(); i++) {
+        if (model.getValueAt(i, 0) != null
+                && model.getValueAt(i, 0).toString()
+                .equals(dispatched.getIncidentID())) {
+
+            model.setValueAt("Dispatched", i, 4);
+            break;
+        }
+    }
+
+    javax.swing.JOptionPane.showMessageDialog(this,
+            "Incident " + dispatched.getIncidentID()
+            + " has been dispatched!");
+
+
+
     }//GEN-LAST:event_btnDispatchHighestPrioActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
