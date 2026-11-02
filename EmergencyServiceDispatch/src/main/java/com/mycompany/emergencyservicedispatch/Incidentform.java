@@ -36,7 +36,8 @@ private void clearForm() {
     public Incidentform() {
         initComponents();
         txtIncidentId.setEditable(false);
-txtIncidentId.setText(generateIncidentId());
+        txtIncidentId.setText(generateIncidentId());
+        cmbNewPrio.setSelectedIndex(-1);
     }
 
     /**
@@ -233,7 +234,7 @@ txtIncidentId.setText(generateIncidentId());
         lblAssignp.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblAssignp.setText("Assign Priority:");
 
-        cmbNewPrio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Critical", "High", "Medium", "Low", " " }));
+        cmbNewPrio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "      ", "Critical", "High", "Medium", "Low", " " }));
         cmbNewPrio.addActionListener(this::cmbNewPrioActionPerformed);
 
         btnAssignPrio.setBackground(new java.awt.Color(255, 102, 102));
@@ -495,6 +496,11 @@ if (selectedRow == -1) {
             "Please select an incident first!");
     return;
 }
+if (cmbNewPrio.getSelectedIndex() == -1) {
+    javax.swing.JOptionPane.showMessageDialog(this,
+            "Please select a priority first!");
+    return;
+}
 
 String incidentID = tblIncidents.getValueAt(selectedRow, 0).toString();
 String newPriority = cmbNewPrio.getSelectedItem().toString();
@@ -521,11 +527,16 @@ if (selectedIncident.getStatus().equalsIgnoreCase("Dispatched")) {
     return;
 }
 
+String oldPriority = selectedIncident.getPriority();
+
 selectedIncident.setPriority(newPriority);
 tblIncidents.setValueAt(newPriority, selectedRow, 3);
 
 javax.swing.JOptionPane.showMessageDialog(this,
-        "Priority updated successfully!");
+        "Priority Updated Successfully!\n\n"
+        + "Incident ID: " + incidentID + "\n"
+        + "Previous Priority: " + oldPriority + "\n"
+        + "New Priority: " + newPriority);
     }//GEN-LAST:event_btnAssignPrioActionPerformed
 
     private void txtIncidentIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIncidentIdActionPerformed
