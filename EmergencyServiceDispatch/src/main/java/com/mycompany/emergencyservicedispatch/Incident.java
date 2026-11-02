@@ -12,6 +12,18 @@ public class Incident {
     private String description;
     private String priority;
     private String status;
+    
+    // Checks if the priority is valid
+    private boolean isValidPriority(String priority) {
+    if (priority == null) {
+        return false;
+    }
+
+    return priority.trim().equalsIgnoreCase("Critical")
+            || priority.trim().equalsIgnoreCase("High")
+            || priority.trim().equalsIgnoreCase("Medium")
+            || priority.trim().equalsIgnoreCase("Low");
+}
 
     // Constructor with input validation
     public Incident(String incidentID, String reporterName,
@@ -46,8 +58,9 @@ public class Incident {
             throw new IllegalArgumentException("Description cannot be empty.");
         }
 
-        if (priority == null || priority.trim().isEmpty()) {
-            throw new IllegalArgumentException("Priority cannot be empty.");
+       if (!isValidPriority(priority)) {
+       throw new IllegalArgumentException(
+            "Priority must be Critical, High, Medium, or Low.");
         }
 
         this.incidentID = incidentID.trim();
@@ -95,8 +108,13 @@ public class Incident {
 
     // Setters
     public void setPriority(String priority) {
-        this.priority = priority;
+    if (!isValidPriority(priority)) {
+        throw new IllegalArgumentException(
+                "Invalid priority. Choose Critical, High, Medium, or Low.");
     }
+
+    this.priority = priority.trim();
+}
 
     public void setStatus(String status) {
         this.status = status;
