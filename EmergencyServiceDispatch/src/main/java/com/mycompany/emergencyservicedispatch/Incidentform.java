@@ -82,7 +82,7 @@ txtIncidentId.setText(generateIncidentId());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 19)); // NOI18N
         jLabel1.setText("Emergency Dispatch Service");
 
         pnlRegistration.setBackground(new java.awt.Color(0, 51, 102));
@@ -126,7 +126,7 @@ txtIncidentId.setText(generateIncidentId());
         cmbPriority.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Critical", "High", "Medium", "Low" }));
         cmbPriority.addActionListener(this::cmbPriorityActionPerformed);
 
-        btnRegister.setBackground(new java.awt.Color(255, 0, 51));
+        btnRegister.setBackground(new java.awt.Color(255, 102, 102));
         btnRegister.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnRegister.setText("Register");
         btnRegister.addActionListener(this::btnRegisterActionPerformed);
@@ -203,17 +203,21 @@ txtIncidentId.setText(generateIncidentId());
                 .addComponent(cmbPriority, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pnlRecords.setBackground(new java.awt.Color(204, 204, 204));
 
+        lblIncidentRecords.setBackground(new java.awt.Color(255, 255, 255));
         lblIncidentRecords.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         lblIncidentRecords.setText("Incident Records");
 
-        lblSearch.setText("Search by Incident id");
+        lblSearch.setForeground(new java.awt.Color(102, 102, 102));
+        lblSearch.setText("Search by Incident ID:");
 
-        btnSearch.setBackground(new java.awt.Color(255, 0, 51));
+        txtSearchId.addActionListener(this::txtSearchIdActionPerformed);
+
+        btnSearch.setBackground(new java.awt.Color(255, 102, 102));
         btnSearch.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnSearch.setText("Search");
         btnSearch.addActionListener(this::btnSearchActionPerformed);
@@ -234,12 +238,12 @@ txtIncidentId.setText(generateIncidentId());
         cmbNewPrio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Critical", "High", "Medium", "Low", " " }));
         cmbNewPrio.addActionListener(this::cmbNewPrioActionPerformed);
 
-        btnAssignPrio.setBackground(new java.awt.Color(255, 0, 51));
+        btnAssignPrio.setBackground(new java.awt.Color(255, 102, 102));
         btnAssignPrio.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnAssignPrio.setText("Assign");
         btnAssignPrio.addActionListener(this::btnAssignPrioActionPerformed);
 
-        btnDispatchHighestPrio.setBackground(new java.awt.Color(204, 0, 51));
+        btnDispatchHighestPrio.setBackground(new java.awt.Color(255, 51, 0));
         btnDispatchHighestPrio.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnDispatchHighestPrio.setText("Dispatch Highest Priority");
         btnDispatchHighestPrio.addActionListener(this::btnDispatchHighestPrioActionPerformed);
@@ -251,47 +255,53 @@ txtIncidentId.setText(generateIncidentId());
             .addGroup(pnlRecordsLayout.createSequentialGroup()
                 .addGroup(pnlRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlRecordsLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblIncidentRecords, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlRecordsLayout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addGroup(pnlRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblSearch)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(pnlRecordsLayout.createSequentialGroup()
-                                .addComponent(txtSearchId, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnSearch))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(pnlRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtSearchId, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(pnlRecordsLayout.createSequentialGroup()
+                                        .addGap(9, 9, 9)
+                                        .addComponent(lblSearch)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnSearch))))
                     .addGroup(pnlRecordsLayout.createSequentialGroup()
                         .addGap(16, 16, 16)
-                        .addGroup(pnlRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblAssignp)
-                            .addComponent(cmbNewPrio, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAssignPrio, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnDispatchHighestPrio)))
-                    .addGroup(pnlRecordsLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblIncidentRecords, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(95, Short.MAX_VALUE))
+                        .addGroup(pnlRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnDispatchHighestPrio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(pnlRecordsLayout.createSequentialGroup()
+                                .addGroup(pnlRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblAssignp)
+                                    .addComponent(cmbNewPrio, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnAssignPrio, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         pnlRecordsLayout.setVerticalGroup(
             pnlRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlRecordsLayout.createSequentialGroup()
                 .addComponent(lblIncidentRecords)
-                .addGap(12, 12, 12)
-                .addComponent(lblSearch)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSearchId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(pnlRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(lblSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(pnlRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtSearchId)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblAssignp)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmbNewPrio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbNewPrio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAssignPrio, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAssignPrio, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDispatchHighestPrio, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(72, 72, 72))
+                .addComponent(btnDispatchHighestPrio, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(101, 101, 101))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -306,8 +316,8 @@ txtIncidentId.setText(generateIncidentId());
                         .addComponent(pnlRecords, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(14, Short.MAX_VALUE))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -317,7 +327,7 @@ txtIncidentId.setText(generateIncidentId());
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnlRegistration, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlRecords, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(16, 16, 16))
+                .addContainerGap())
         );
 
         pack();
@@ -516,6 +526,10 @@ javax.swing.JOptionPane.showMessageDialog(this,
     private void cmbNewPrioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNewPrioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbNewPrioActionPerformed
+
+    private void txtSearchIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSearchIdActionPerformed
 
     /**
      * @param args the command line arguments
