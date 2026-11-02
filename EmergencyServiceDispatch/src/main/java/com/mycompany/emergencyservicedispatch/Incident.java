@@ -13,22 +13,54 @@ public class Incident {
     private String priority;
     private String status;
 
-    // Constructor
+    // Constructor with input validation
     public Incident(String incidentID, String reporterName,
             String contactNumber, String incidentType,
             String location, String description, String priority) {
 
-        this.incidentID = incidentID;
-        this.reporterName = reporterName;
-        this.contactNumber = contactNumber;
-        this.incidentType = incidentType;
-        this.location = location;
-        this.description = description;
-        this.priority = priority;
+        if (incidentID == null || incidentID.trim().isEmpty()) {
+            throw new IllegalArgumentException("Incident ID cannot be empty.");
+        }
+
+        if (reporterName == null ||
+        !reporterName.trim().matches("[a-zA-Z ]{2,}")) {
+        throw new IllegalArgumentException(
+            "Reporter name must contain at least 2 letters.");
+        }
+
+        if (contactNumber == null ||
+        !contactNumber.matches("09\\d{9}")) {
+        throw new IllegalArgumentException(
+            "Contact number must start with 09 and contain exactly 11 digits.");
+        }
+
+        if (incidentType == null || incidentType.trim().isEmpty()) {
+            throw new IllegalArgumentException("Incident type cannot be empty.");
+        }
+
+        if (location == null || location.trim().isEmpty()) {
+            throw new IllegalArgumentException("Location cannot be empty.");
+        }
+
+        if (description == null || description.trim().isEmpty()) {
+            throw new IllegalArgumentException("Description cannot be empty.");
+        }
+
+        if (priority == null || priority.trim().isEmpty()) {
+            throw new IllegalArgumentException("Priority cannot be empty.");
+        }
+
+        this.incidentID = incidentID.trim();
+        this.reporterName = reporterName.trim();
+        this.contactNumber = contactNumber.trim();
+        this.incidentType = incidentType.trim();
+        this.location = location.trim();
+        this.description = description.trim();
+        this.priority = priority.trim();
         this.status = "Pending";
     }
 
-    // Getters and Setters
+    // Getters
     public String getIncidentID() {
         return incidentID;
     }
@@ -61,6 +93,7 @@ public class Incident {
         return status;
     }
 
+    // Setters
     public void setPriority(String priority) {
         this.priority = priority;
     }

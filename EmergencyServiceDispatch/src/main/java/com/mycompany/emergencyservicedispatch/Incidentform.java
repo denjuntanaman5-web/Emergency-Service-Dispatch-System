@@ -357,6 +357,14 @@ if (reporter.isEmpty() || contact.isEmpty()
             "Please complete all fields!");
     return;
 }
+if (!reporter.matches("[a-zA-Z ]{2,}")) {
+    javax.swing.JOptionPane.showMessageDialog(this,
+            "Reporter name must contain at least 2 letters!",
+            "Invalid Reporter Name",
+            javax.swing.JOptionPane.WARNING_MESSAGE);
+    txtReporter.requestFocus();
+    return;
+}
 if (!contact.matches("[0-9]+")) {
     javax.swing.JOptionPane.showMessageDialog(this,
             "Contact number must contain numbers only!");
