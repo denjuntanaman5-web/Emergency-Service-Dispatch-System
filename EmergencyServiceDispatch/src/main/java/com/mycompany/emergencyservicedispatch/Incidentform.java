@@ -242,7 +242,7 @@ private void clearForm() {
         btnAssignPrio.setText("Assign");
         btnAssignPrio.addActionListener(this::btnAssignPrioActionPerformed);
 
-        btnDispatchHighestPrio.setBackground(new java.awt.Color(255, 51, 0));
+        btnDispatchHighestPrio.setBackground(new java.awt.Color(234, 54, 34));
         btnDispatchHighestPrio.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnDispatchHighestPrio.setText("Dispatch Highest Priority");
         btnDispatchHighestPrio.addActionListener(this::btnDispatchHighestPrioActionPerformed);
@@ -283,10 +283,11 @@ private void clearForm() {
             .addGroup(pnlRecordsLayout.createSequentialGroup()
                 .addComponent(lblIncidentRecords)
                 .addGap(18, 18, 18)
-                .addGroup(pnlRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSearchId, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtSearchId, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
@@ -448,8 +449,9 @@ javax.swing.JOptionPane.showMessageDialog(this,
                 && model.getValueAt(i, 0).toString()
                 .equals(dispatched.getIncidentID())) {
 
-            model.setValueAt("Dispatched", i, 4);
-            break;
+            dispatched.setStatus("Dispatched");
+model.setValueAt(dispatched.getStatus(), i, 4);
+break;
         }
     }
 

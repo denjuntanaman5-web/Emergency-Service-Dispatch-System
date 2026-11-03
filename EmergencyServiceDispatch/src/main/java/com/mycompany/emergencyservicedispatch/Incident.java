@@ -116,7 +116,15 @@ public class Incident {
     this.priority = priority.trim();
 }
 
-    public void setStatus(String status) {
-        this.status = status;
+public void setStatus(String status) {
+    if (status == null ||
+        !(status.trim().equalsIgnoreCase("Pending")
+        || status.trim().equalsIgnoreCase("Dispatched"))) {
+
+        throw new IllegalArgumentException(
+                "Invalid status. Choose Pending or Dispatched.");
     }
+
+    this.status = status.trim();
+}
 }
