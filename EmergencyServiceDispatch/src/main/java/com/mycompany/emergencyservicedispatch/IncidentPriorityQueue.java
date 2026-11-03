@@ -12,17 +12,25 @@ public class IncidentPriorityQueue {
     }
 
     // Add incident to the priority queue
-    public boolean addIncident(Incident incident) {
+public boolean addIncident(Incident incident) {
 
-        if (size >= queue.length || incident == null) {
+    if (size >= queue.length || incident == null) {
+        return false;
+    }
+
+    // Check if the incident ID already exists
+    for (int i = 0; i < size; i++) {
+        if (queue[i].getIncidentID().equalsIgnoreCase(
+                incident.getIncidentID())) {
             return false;
         }
-
-        queue[size] = incident;
-        size++;
-
-        return true;
     }
+
+    queue[size] = incident;
+    size++;
+
+    return true;
+}
 
     // Get priority rank
     private int getPriorityRank(String priority) {
