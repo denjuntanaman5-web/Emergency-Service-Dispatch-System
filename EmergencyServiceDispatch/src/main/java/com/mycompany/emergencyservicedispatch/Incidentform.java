@@ -255,7 +255,6 @@ private void clearForm() {
         lblAssignp.setText("Assign Priority:");
 
         cmbNewPrio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Critical", "High", "Medium", "Low", " " }));
-        cmbNewPrio.setSelectedIndex(-1);
         cmbNewPrio.addActionListener(this::cmbNewPrioActionPerformed);
 
         btnAssignPrio.setBackground(new java.awt.Color(255, 0, 51));
@@ -510,6 +509,18 @@ javax.swing.JOptionPane.showMessageDialog(this,
     String reporter = txtReporter.getText().trim();
     String contact = txtContact.getText().trim();
     String location = txtLocation.getText().trim();
+    if (!isValidBarangay(location)) {
+
+    javax.swing.JOptionPane.showMessageDialog(this,
+        "Invalid Barangay!\n\n"
+        + "Please enter a valid barangay in Manolo Fortich, Bukidnon.",
+        "Invalid Location",
+        javax.swing.JOptionPane.WARNING_MESSAGE);
+
+    txtLocation.requestFocus();
+    txtLocation.selectAll();
+    return;
+}
     String description = txtDescription.getText().trim();
 
     // 3. Validate required fields
@@ -682,7 +693,55 @@ private boolean isValidReporterName(String name) {
 
     return true;
 }
+    private boolean isValidBarangay(String location) {
 
+    String barangay = location.trim()
+        .toLowerCase(java.util.Locale.ROOT)
+        .replaceAll("\\s+", " ");
+
+    // Remove optional Barangay prefix
+    barangay = barangay.replaceFirst(
+        "^(barangay|brgy\\.?)[ ]*", ""
+    );
+
+    java.util.List<String> validBarangays =
+        java.util.Arrays.asList(
+            "agusan canyon",
+            "alae",
+            "dahilayan",
+            "dalirig",
+            "damilag",
+            "diclum",
+            "guilang-guilang",
+            "kalugmanan",
+            "lindaban",
+            "lingion",
+            "lunocan",
+            "maluko",
+            "mambatangan",
+            "mampayag",
+            "minsuro",
+            "mantibugao",
+            "tankulan",
+            "san miguel",
+            "sankanan",
+            "santiago",
+            "sto. niño",
+            "ticala"
+        );
+
+    // Allow common alternative spelling
+    if (barangay.equals("santo niño")) {
+        barangay = "sto. niño";
+    }
+
+    if (barangay.equals("tankulan poblacion")
+        || barangay.equals("tankulan (pob.)")) {
+        barangay = "tankulan";
+    }
+
+    return validBarangays.contains(barangay);
+}
     private void cmbPriorityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPriorityActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbPriorityActionPerformed
