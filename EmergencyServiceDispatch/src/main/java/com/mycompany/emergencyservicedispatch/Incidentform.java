@@ -524,14 +524,18 @@ javax.swing.JOptionPane.showMessageDialog(this,
     }
 
     // 4. Validate reporter name
-    if (!reporter.matches("[a-zA-Z ]{2,}")) {
-        javax.swing.JOptionPane.showMessageDialog(this,
-            "Reporter name must contain at least 2 letters and no numbers.",
-            "Invalid Reporter Name",
-            javax.swing.JOptionPane.WARNING_MESSAGE);
-        txtReporter.requestFocus();
-        return;
-    }
+   if (!isValidReporterName(reporter)) {
+    javax.swing.JOptionPane.showMessageDialog(this,
+        "Please enter a valid reporter name.\n"
+        + "Name must contain at least 3 letters and "
+        + "must not contain random or repeated characters.",
+        "Invalid Reporter Name",
+        javax.swing.JOptionPane.WARNING_MESSAGE);
+
+    txtReporter.requestFocus();
+    return;
+}
+    
 
     // 5. Validate contact number
     if (!contact.matches("[0-9]{11}")) {
@@ -651,6 +655,33 @@ javax.swing.JOptionPane.showMessageDialog(this,
 
 
     }//GEN-LAST:event_btnRegisterActionPerformed
+
+private boolean isValidReporterName(String name) {
+
+    // Allow letters and spaces only
+    if (!name.matches("[\\p{L}]+( [\\p{L}]+)*")) {
+        return false;
+    }
+
+    // At least 3 letters
+    String letters = name.replace(" ", "");
+
+    if (letters.length() < 3) {
+        return false;
+    }
+
+    // Reject names containing only repeated characters
+    if (letters.chars().distinct().count() == 1) {
+        return false;
+    }
+
+    // Require at least one vowel
+    if (!letters.matches("(?iu).* [aeiou].*".replace(" ", ""))) {
+        return false;
+    }
+
+    return true;
+}
 
     private void cmbPriorityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPriorityActionPerformed
         // TODO add your handling code here:
