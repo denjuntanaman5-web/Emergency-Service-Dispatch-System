@@ -96,6 +96,9 @@ private void applyPriorityColors() {
     /**
      * Creates new form Incidentform
      */
+     private void clearTableSelection() {
+    tblIncidents.clearSelection();
+}
    public Incidentform() {
     initComponents();
 
@@ -104,7 +107,19 @@ private void applyPriorityColors() {
     cmbNewPrio.setSelectedIndex(-1);
 
     applyPriorityColors();
+        pnlRegistration.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mousePressed(java.awt.event.MouseEvent evt) {
+            clearTableSelection();
+        }
+    });
+
+    pnlRecords.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mousePressed(java.awt.event.MouseEvent evt) {
+            clearTableSelection();
+        }
+    });
 }
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -466,9 +481,9 @@ break;
     }//GEN-LAST:event_btnDispatchHighestPrioActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-       String searchID = txtSearchId.getText().trim();
+    String searchID = txtSearchId.getText().trim();
 
-if (searchID.isEmpty()) {
+    if (searchID.isEmpty()) {
     javax.swing.JOptionPane.showMessageDialog(this,
             "Please enter an Incident ID!");
     return;
