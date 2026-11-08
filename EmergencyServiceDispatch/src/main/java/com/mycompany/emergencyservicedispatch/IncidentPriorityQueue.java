@@ -86,9 +86,23 @@ public boolean addIncident(Incident incident) {
 
         return incident;
     }
+    // Count all pending incidents
+public int getPendingCount() {
+
+    int count = 0;
+
+    for (int i = 0; i < size; i++) {
+        if (queue[i].getStatus().equalsIgnoreCase("Pending")) {
+            count++;
+        }
+    }
+
+    return count;
+}
 
     // Get current number of incidents
     public int getSize() {
+        
         return size;
     }
 }
