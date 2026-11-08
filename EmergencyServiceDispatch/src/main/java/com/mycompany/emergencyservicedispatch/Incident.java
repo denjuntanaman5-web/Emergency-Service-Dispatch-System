@@ -54,9 +54,21 @@ public class Incident {
             throw new IllegalArgumentException("Location cannot be empty.");
         }
 
-        if (description == null || description.trim().isEmpty()) {
-            throw new IllegalArgumentException("Description cannot be empty.");
-        }
+       if (description == null || description.trim().isEmpty()) {
+    throw new IllegalArgumentException("Description cannot be empty.");
+}
+
+    String[] words = description.trim().split("\\s+");
+
+    if (words.length < 4) {
+    throw new IllegalArgumentException(
+        "Description must contain at least 4 words.");
+    }
+
+    if (!description.matches(".*[a-zA-Z].*")) {
+    throw new IllegalArgumentException(
+        "Description must contain letters.");
+}
 
        if (!isValidPriority(priority)) {
        throw new IllegalArgumentException(

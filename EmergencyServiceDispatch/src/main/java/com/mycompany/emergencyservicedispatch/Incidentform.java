@@ -658,6 +658,18 @@ javax.swing.JOptionPane.showMessageDialog(this,
         cmbPriority.requestFocus();
         return;
     }
+    // Validate description
+String[] words = description.split("\\s+");
+
+if (words.length < 4 || !description.matches("(?s).*\\p{L}.*")) {
+    javax.swing.JOptionPane.showMessageDialog(this,
+        "Description must contain at least 4 words.",
+        "Invalid Description",
+        javax.swing.JOptionPane.WARNING_MESSAGE);
+
+    txtDescription.requestFocus();
+    return;
+}
 
     String priority = cmbPriority.getSelectedItem().toString();
 
@@ -674,8 +686,9 @@ javax.swing.JOptionPane.showMessageDialog(this,
     String id = generateIncidentId();
 
     // 9. Create incident based on type
-    Incident newIncident = null;
+Incident newIncident = null;
 
+try {
     switch (type) {
         case "Medical":
             newIncident = new MedicalIncident(id, reporter, contact,
@@ -699,6 +712,14 @@ javax.swing.JOptionPane.showMessageDialog(this,
                 javax.swing.JOptionPane.WARNING_MESSAGE);
             return;
     }
+
+} catch (IllegalArgumentException e) {
+    javax.swing.JOptionPane.showMessageDialog(this,
+        e.getMessage(),
+        "Invalid Incident Information",
+        javax.swing.JOptionPane.WARNING_MESSAGE);
+    return;
+}
 
     // 10. Add incident to priority queue
     if (!priorityQueue.addIncident(newIncident)) {
