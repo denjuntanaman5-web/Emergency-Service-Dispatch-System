@@ -2,14 +2,14 @@
 package com.mycompany.emergencyservicedispatch;
 
 public class IncidentPriorityQueue {
-
+    private static final int MAX_SIZE = 100;
     private Incident[] queue;
     private int size;
 
     public IncidentPriorityQueue() {
-        queue = new Incident[100];
-        size = 0;
-    }
+    queue = new Incident[MAX_SIZE];
+    size = 0;
+}
 
     // Add incident to the priority queue
 public boolean addIncident(Incident incident) {
