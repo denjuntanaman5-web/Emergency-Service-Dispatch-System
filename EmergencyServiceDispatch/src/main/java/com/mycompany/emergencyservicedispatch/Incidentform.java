@@ -30,15 +30,81 @@ private void clearForm() {
     cmbIncidentType.setSelectedIndex(0);
     cmbPriority.setSelectedIndex(0);
 }
+private void applyPriorityColors() {
+
+    tblIncidents.getColumnModel()
+        .getColumn(3)
+        .setCellRenderer(new javax.swing.table.DefaultTableCellRenderer() {
+
+            @Override
+            public java.awt.Component getTableCellRendererComponent(
+                javax.swing.JTable table,
+                Object value,
+                boolean isSelected,
+                boolean hasFocus,
+                int row,
+                int column) {
+
+                java.awt.Component cell =
+                    super.getTableCellRendererComponent(
+                        table, value, isSelected, hasFocus, row, column);
+
+                String priority = value == null
+                    ? "" : value.toString().trim();
+
+                if (isSelected) {
+                    cell.setForeground(table.getSelectionForeground());
+                    cell.setBackground(table.getSelectionBackground());
+                } else {
+
+                    switch (priority.toLowerCase()) {
+
+                        case "critical":
+                            cell.setBackground(new java.awt.Color(220, 38, 38));
+                            cell.setForeground(java.awt.Color.WHITE);
+                            break;
+
+                        case "high":
+                            cell.setBackground(new java.awt.Color(234, 88, 12));
+                            cell.setForeground(java.awt.Color.WHITE);
+                            break;
+
+                        case "medium":
+                            cell.setBackground(new java.awt.Color(250, 204, 21));
+                            cell.setForeground(java.awt.Color.BLACK);
+                            break;
+
+                        case "low":
+                            cell.setBackground(new java.awt.Color(22, 163, 74));
+                            cell.setForeground(java.awt.Color.WHITE);
+                            break;
+
+                        default:
+                            cell.setBackground(table.getBackground());
+                            cell.setForeground(table.getForeground());
+                            break;
+                    }
+                }
+
+                setHorizontalAlignment(
+                    javax.swing.SwingConstants.CENTER);
+
+                return cell;
+            }
+        });
+}
     /**
      * Creates new form Incidentform
      */
-    public Incidentform() {
-        initComponents();
-        txtIncidentId.setEditable(false);
-        txtIncidentId.setText(generateIncidentId());
-        cmbNewPrio.setSelectedIndex(-1);
-    }
+   public Incidentform() {
+    initComponents();
+
+    txtIncidentId.setEditable(false);
+    txtIncidentId.setText(generateIncidentId());
+    cmbNewPrio.setSelectedIndex(-1);
+
+    applyPriorityColors();
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -509,18 +575,6 @@ javax.swing.JOptionPane.showMessageDialog(this,
     String reporter = txtReporter.getText().trim();
     String contact = txtContact.getText().trim();
     String location = txtLocation.getText().trim();
-    if (!isValidBarangay(location)) {
-
-    javax.swing.JOptionPane.showMessageDialog(this,
-        "Invalid Barangay!\n\n"
-        + "Please enter a valid barangay in Manolo Fortich, Bukidnon.",
-        "Invalid Location",
-        javax.swing.JOptionPane.WARNING_MESSAGE);
-
-    txtLocation.requestFocus();
-    txtLocation.selectAll();
-    return;
-}
     String description = txtDescription.getText().trim();
 
     // 3. Validate required fields
@@ -693,55 +747,7 @@ private boolean isValidReporterName(String name) {
 
     return true;
 }
-    private boolean isValidBarangay(String location) {
-
-    String barangay = location.trim()
-        .toLowerCase(java.util.Locale.ROOT)
-        .replaceAll("\\s+", " ");
-
-    // Remove optional Barangay prefix
-    barangay = barangay.replaceFirst(
-        "^(barangay|brgy\\.?)[ ]*", ""
-    );
-
-    java.util.List<String> validBarangays =
-        java.util.Arrays.asList(
-            "agusan canyon",
-            "alae",
-            "dahilayan",
-            "dalirig",
-            "damilag",
-            "diclum",
-            "guilang-guilang",
-            "kalugmanan",
-            "lindaban",
-            "lingion",
-            "lunocan",
-            "maluko",
-            "mambatangan",
-            "mampayag",
-            "minsuro",
-            "mantibugao",
-            "tankulan",
-            "san miguel",
-            "sankanan",
-            "santiago",
-            "sto. niño",
-            "ticala"
-        );
-
-    // Allow common alternative spelling
-    if (barangay.equals("santo niño")) {
-        barangay = "sto. niño";
-    }
-
-    if (barangay.equals("tankulan poblacion")
-        || barangay.equals("tankulan (pob.)")) {
-        barangay = "tankulan";
-    }
-
-    return validBarangays.contains(barangay);
-}
+    
     private void cmbPriorityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPriorityActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbPriorityActionPerformed
