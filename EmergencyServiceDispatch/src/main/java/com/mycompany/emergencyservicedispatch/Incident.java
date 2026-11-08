@@ -15,15 +15,15 @@ public class Incident {
     
     // Checks if the priority is valid
     private boolean isValidPriority(String priority) {
-    if (priority == null) {
+         if (priority == null) {
         return false;
     }
-
+         
     return priority.trim().equalsIgnoreCase("Critical")
             || priority.trim().equalsIgnoreCase("High")
             || priority.trim().equalsIgnoreCase("Medium")
             || priority.trim().equalsIgnoreCase("Low");
-}
+    }
 
     // Constructor with input validation
     public Incident(String incidentID, String reporterName,
@@ -55,20 +55,20 @@ public class Incident {
         }
 
        if (description == null || description.trim().isEmpty()) {
-    throw new IllegalArgumentException("Description cannot be empty.");
-}
+       throw new IllegalArgumentException("Description cannot be empty.");
+        }
 
     String[] words = description.trim().split("\\s+");
 
-    if (words.length < 4) {
-    throw new IllegalArgumentException(
+        if (words.length < 4) {
+        throw new IllegalArgumentException(
         "Description must contain at least 4 words.");
     }
 
     if (!description.matches(".*[a-zA-Z].*")) {
-    throw new IllegalArgumentException(
+        throw new IllegalArgumentException(
         "Description must contain letters.");
-}
+    }
 
        if (!isValidPriority(priority)) {
        throw new IllegalArgumentException(
@@ -121,22 +121,17 @@ public class Incident {
     // Setters
     public void setPriority(String priority) {
     if (!isValidPriority(priority)) {
-        throw new IllegalArgumentException(
-                "Invalid priority. Choose Critical, High, Medium, or Low.");
+        throw new IllegalArgumentException("Invalid priority. Choose Critical, High, Medium, or Low.");
+    }
+        this.priority = priority.trim();
     }
 
-    this.priority = priority.trim();
-}
-
-public void setStatus(String status) {
+    public void setStatus(String status) {
     if (status == null ||
         !(status.trim().equalsIgnoreCase("Pending")
         || status.trim().equalsIgnoreCase("Dispatched"))) {
-
-        throw new IllegalArgumentException(
-                "Invalid status. Choose Pending or Dispatched.");
+        throw new IllegalArgumentException("Invalid status. Choose Pending or Dispatched.");
+    }  
+     this.status = status.trim();
     }
-
-    this.status = status.trim();
-}
 }
