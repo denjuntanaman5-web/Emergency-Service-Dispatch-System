@@ -558,6 +558,7 @@ String oldPriority = selectedIncident.getPriority();
 
 selectedIncident.setPriority(newPriority);
 tblIncidents.setValueAt(newPriority, selectedRow, 3);
+cmbNewPrio.setSelectedIndex(-1);
 
 javax.swing.JOptionPane.showMessageDialog(this,
         "Priority Updated Successfully!\n\n"
@@ -726,7 +727,11 @@ javax.swing.JOptionPane.showMessageDialog(this,
 
     // 14. Clear form
     clearForm();
-
+    
+    // Clear combo boxes
+    cmbIncidentType.setSelectedIndex(-1);
+    cmbPriority.setSelectedIndex(-1);
+    cmbNewPrio.setSelectedIndex(-1);
     // 15. Show success message
     javax.swing.JOptionPane.showMessageDialog(this,
         "Incident has been successfully registered!",
