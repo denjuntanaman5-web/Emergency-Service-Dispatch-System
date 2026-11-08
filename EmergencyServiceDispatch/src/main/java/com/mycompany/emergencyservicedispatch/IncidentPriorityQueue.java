@@ -9,10 +9,10 @@ public class IncidentPriorityQueue {
     public IncidentPriorityQueue() {
     queue = new Incident[MAX_SIZE];
     size = 0;
-}
+    }
 
     // Add incident to the priority queue
-public boolean addIncident(Incident incident) {
+    public boolean addIncident(Incident incident) {
 
     if (size >= queue.length || incident == null) {
         return false;
@@ -30,7 +30,7 @@ public boolean addIncident(Incident incident) {
     size++;
 
     return true;
-}
+    }
 
     // Get priority rank
     private int getPriorityRank(String priority) {
@@ -55,54 +55,43 @@ public boolean addIncident(Incident incident) {
         int highestRank = 5;
 
         for (int i = 0; i < size; i++) {
-
-            if (queue[i].getStatus().equalsIgnoreCase("Pending")) {
-
-                int currentRank =
-                        getPriorityRank(queue[i].getPriority());
-
+           if (queue[i].getStatus().equalsIgnoreCase("Pending")) {
+              int currentRank = getPriorityRank(queue[i].getPriority());
                 if (currentRank < highestRank) {
                     highestRank = currentRank;
                     highestIndex = i;
                 }
             }
         }
-
         if (highestIndex == -1) {
             return null;
         }
-
         return queue[highestIndex];
     }
 
     // Dispatch the highest-priority pending incident
     public Incident dispatchHighestPriority() {
-
         Incident incident = getHighestPriorityPending();
-
         if (incident != null) {
-            incident.setStatus("Dispatched");
+        incident.setStatus("Dispatched");
         }
-
         return incident;
     }
+   
     // Count all pending incidents
-public int getPendingCount() {
+    public int getPendingCount() {
+        int count = 0;
 
-    int count = 0;
-
-    for (int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++) {
         if (queue[i].getStatus().equalsIgnoreCase("Pending")) {
             count++;
         }
+      }
+        return count;
     }
-
-    return count;
-}
 
     // Get current number of incidents
     public int getSize() {
-        
         return size;
     }
 }
