@@ -1,47 +1,89 @@
-# Emergency Service Dispatch System
+Emergency Service Dispatch System (ESDS)
 
-A Java Swing application for managing emergency incident reports and dispatch priorities.
+Project Description
+The Emergency Service Dispatch System (ESDS) is a Java desktop application designed to register, organize, and manage emergency incidents.
 
-## Subjects
-- IT20 - Data Structures and Algorithms
-- IT21 - Object-Oriented Programming
+The system allows users to register emergency reports, assign priority levels, search incidents using their Incident ID, and dispatch the highest-priority pending incident.
 
+This project demonstrates the application of Object-Oriented Programming (OOP) and Data Structures and Algorithms (DSA).
 
- 
+ Features
 
-## DSA Implementation (IT20)
+- Incident Registration – Register emergency incidents with reporter information, contact number, incident type, location, description, and priority.
+- Input Validation – Checks required fields and validates the information before registration.
+- Automatic Incident ID – Generates a unique ID for every registered incident.
+- Priority Assignment – Allows users to update the priority of a pending incident.
+- Highest-Priority Dispatching – Automatically selects and dispatches the pending incident with the highest priority.
+- Search by Incident ID – Finds incident records using Manual Linear Search.
+- Incident Records – Displays registered incidents and their current status.
 
-### 1. Array-Based Priority Queue
+Incident Types
 
-The system uses a manually implemented array-based priority queue to store emergency incidents.
+The system supports three types of emergency incidents:
 
-- Incidents are stored in an array.
-- The system checks pending incidents to find the highest priority.
-- Priority order:
-  - Critical
-  - High
-  - Medium
-  - Low
-- The highest-priority pending incident is dispatched first.
-- Dispatched incidents remain stored in the array.
+- Medical
+- Fire
+- Accident
 
-### 2. Linear Search
+Priority Levels
 
-The system uses manual linear search to find an incident using its Incident ID.
+The system follows this priority order:
 
-- The system checks each incident one by one.
-- If the Incident ID matches, the incident details are displayed.
-- If no match is found, the system displays an incident not found message.
+1. Critical
+2. High
+3. Medium
+4. Low
 
-### 3. Priority Assignment
+Object-Oriented Programming (IT21)
 
-The dispatcher can update the priority of a selected pending incident.
+The project applies the following OOP concepts:
 
-- The updated priority is reflected in the incident record.
-- The priority queue uses the updated priority when selecting the next incident to dispatch.
+- Encapsulation – Uses private fields to protect incident information.
+- Constructors – Initializes incident objects.
+- Getters and Setters – Provides controlled access to incident information.
+- Inheritance – Uses a parent class and child classes.
 
-### 4. Data Structure
+Class Structure
 
-- Array: Stores incident records.
-- Priority Queue: Selects the highest-priority pending incident.
-- Linear Search: Finds incidents using their Incident ID.
+Parent Class:
+- `Incident`
+
+Child Classes:
+- `MedicalIncident`
+- `FireIncident`
+- `AccidentIncident`
+
+The child classes extend the `Incident` parent class and use `super()` to call its constructor.
+
+Data Structures and Algorithms (IT20)
+
+The project implements the following:
+
+- Array-based Priority Queue – Stores and manages incidents according to their priority levels.
+- Manual Linear Search – Searches for an incident by checking stored records one by one using a loop.
+- Array Storage – Uses an array with a maximum capacity of 100 incidents.
+- Priority Comparison – Compares priority levels to identify the highest-priority pending incident.
+
+The main data structure and searching logic are manually implemented without using Java Collection classes.
+
+Technologies Used
+
+- Java
+- Java Swing (GUI)
+- Apache Maven
+- NetBeans IDE
+
+How to Run
+
+1. Clone or download this repository.
+2. Open NetBeans IDE.
+3. Select File → Open Project.
+4. Locate and open the `EmergencyServiceDispatch` project folder.
+5. Build and run the project.
+
+Project Information
+Project Title: Emergency Service Dispatch System
+Programming Language: Java
+Project Type: Java Desktop Application
+Courses: IT20 – Data Structures and Algorithms / IT21 – Object-Oriented Programming
+Academic Year: S.Y. 2026–2027
